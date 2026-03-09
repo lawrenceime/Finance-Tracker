@@ -6,6 +6,7 @@ import { SummaryCards } from 'src/features/dashboard/SummaryCards';
 import { BudgetSection } from 'src/features/budgets/BudgetSection';
 import { AddTransactionDialog } from 'src/features/transactions/AddTransactionDialog';
 import { TransactionList } from 'src/features/transactions/TransactionList';
+import { SpendingChart } from 'src/features/dashboard/SpendingChart';
 
 export default function Dashboard() {
   const { balance, totals, budgets, getSpentByCategory , addTransaction , transactions , deleteTransaction } = useFinance();
@@ -25,7 +26,7 @@ export default function Dashboard() {
           expenses={totals.expenses} 
         />
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} sx={{ mb: 4 }}>
           {/* Left Column: Budgets */}
           <Grid size={{ xs: 12, md: 5 }}>
             <BudgetSection 
@@ -33,15 +34,18 @@ export default function Dashboard() {
               getSpentByCategory={getSpentByCategory} 
             />
           </Grid>
-
-          {/* Right Column: Placeholder for Transactions and Charts */}
           <Grid size={{ xs: 12, md: 7 }}>
-             <TransactionList 
+            <SpendingChart transactions={transactions} />
+          </Grid>
+        </Grid>
+        
+         {/* List Section */}
+        <Box sx={{ mb: 4 }}>
+           <TransactionList 
               transactions={transactions} 
               onDelete={deleteTransaction} 
             />
-          </Grid>
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );
